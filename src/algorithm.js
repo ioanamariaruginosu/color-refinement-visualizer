@@ -49,7 +49,7 @@ function computeColorRefinementSteps(n, edgeList) {
         if (!changed) {
             steps.push({
                 coloring: [...coloring],
-                title: `Step ${iteration} — Stable (Fixed Point)`,
+                title: `Step ${iteration} — Stable`,
                 desc: `No changes. Algorithm converged with ${numClasses} color class${numClasses !== 1 ? 'es' : ''}.`,
             });
             break;
