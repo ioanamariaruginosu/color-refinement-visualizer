@@ -44,7 +44,7 @@
 
             <div id="uploadPanel" style="display:none">
                 <div class="upload-area" id="dropZone">
-                    <input type="file" accept=".xlsx,.xls,.csv" id="fileInput"/>
+                    <input type="file" accept=".xlsx,.xls,.csv" id="fileInput" onchange="handleFile(this)" />
                     <div class="upload-icon">📊</div>
                     <strong>Drop Excel/CSV file</strong>
                     <p>Two columns: source, target<br>First row can be header</p>
@@ -106,7 +106,8 @@
 
 <div class="notification" id="notification"></div>
 
-<script src="graph.js"></script>
+<script src="src/graph.js"></script>
+<script src="src/upload.js"></script>
 
 </body>
 </html>
