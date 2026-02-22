@@ -460,3 +460,133 @@ canvas {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 14px 16px;
+    }
+
+    header h1 { font-size: 1.1rem; }
+
+    .badge { display: none; }
+
+    .app {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 53px);
+    }
+
+    .main {
+        order: 1; /* canvas first */
+        flex-shrink: 0;
+    }
+
+    .graph-area {
+        height: 42vh;
+        min-height: 240px;
+    }
+
+    .legend { display: none !important; }
+
+    .step-bar {
+        padding: 10px 16px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .step-info {
+        flex: 1 1 100%;
+        order: 1;
+    }
+
+    .step-title { font-size: 0.78rem; }
+    .step-desc  { font-size: 0.72rem; }
+
+    .progress-dots {
+        order: 3;
+        flex: 1;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .step-nav {
+        order: 2;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.3rem;
+        border-radius: 12px;
+    }
+
+    .step-counter { font-size: 0.8rem; min-width: 56px; }
+
+    .sidebar {
+        order: 2;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        padding: 16px;
+        gap: 14px;
+        overflow-y: visible;
+        max-height: none;
+    }
+
+    .card { padding: 14px; }
+
+    .manual-edges { max-height: 160px; }
+
+    .edge-row input {
+        font-size: 1rem;
+        padding: 10px 8px;
+        min-height: 44px;
+    }
+
+    .edge-row button {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+        font-size: 1rem;
+        padding: 10px 12px;
+        min-height: 44px;
+    }
+
+    .btn {
+        min-height: 44px;
+        font-size: 0.9rem;
+    }
+
+    .btn.sm {
+        min-height: 38px;
+        font-size: 0.82rem;
+    }
+
+    .add-edge-btn {
+        min-height: 44px;
+        font-size: 0.85rem;
+    }
+
+    .upload-area { padding: 16px; }
+    .upload-icon  { font-size: 1.5rem; }
+
+    .notification {
+        top: auto;
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        max-width: none;
+        text-align: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .graph-area { height: 36vh; min-height: 200px; }
+    header h1   { font-size: 1rem; }
+}
