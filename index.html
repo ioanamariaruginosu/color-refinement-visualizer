@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Refinement</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Color<span>Refine</span></h1>
+    <span class="badge">GRAPH ALGORITHM</span>
+</header>
+
+<div class="app">
+
+    <div class="sidebar">
+        <div class="card">
+            <div class="section-label">Graph Setup</div>
+            <div class="input-row">
+                <label>Vertices</label>
+                <input type="number" id="numVertices" value="6" min="1" max="50" />
+                <button class="btn sm">Set</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-label">Edges</div>
+            <div class="tab-row" style="margin-bottom:14px">
+                <button class="tab active">Manual</button>
+                <button class="tab">Upload Excel</button>
+            </div>
+
+            <div id="manualPanel">
+                <div class="manual-edges" id="edgeList"></div>
+                <button class="add-edge-btn" style="margin-top:10px">+ Add Edge</button>
+                <div style="display:flex;gap:8px;margin-top:12px">
+                    <button class="btn outline" style="flex:1;font-size:0.78rem">Clear</button>
+                    <button class="btn" style="flex:1">&#9654; Run</button>
+                </div>
+            </div>
+
+            <div id="uploadPanel" style="display:none">
+                <div class="upload-area" id="dropZone">
+                    <input type="file" accept=".xlsx,.xls,.csv" id="fileInput"/>
+                    <div class="upload-icon">📊</div>
+                    <strong>Drop Excel/CSV file</strong>
+                    <p>Two columns: source, target<br>First row can be header</p>
+                </div>
+                <div id="uploadStatus" style="margin-top:10px;font-size:0.78rem;color:var(--muted)"></div>
+                <button class="btn" style="width:100%;margin-top:12px">&#9654; Run</button>
+            </div>
+        </div>
+
+        <div class="card" id="colorLegendCard" style="display:none">
+            <div class="section-label">Color Classes</div>
+            <div id="colorLegend"></div>
+        </div>
+
+        <div class="card" id="statsCard" style="display:none">
+            <div class="section-label">Current Step Stats</div>
+            <div id="statsContent"></div>
+        </div>
+
+    </div>
+
+    <div class="main">
+        <div class="graph-area" id="graphArea">
+            <canvas id="graphCanvas"></canvas>
+
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">🔮</div>
+                <p>Set vertices and edges, then click Run</p>
+            </div>
+
+            <div class="legend" id="legendPanel" style="display:none">
+                <div class="legend-title">LEGEND</div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#6c63ff"></div>
+                    Node (colored by class)
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#444466"></div>
+                    Edge
+                </div>
+            </div>
+        </div>
+
+        <div class="step-bar" id="stepBar" style="display:none">
+            <div class="step-info">
+                <div class="step-title" id="stepTitle">Step 0 — Initial Coloring</div>
+                <div class="step-desc" id="stepDesc">All vertices start with the same color class</div>
+            </div>
+            <div class="progress-dots" id="progressDots"></div>
+            <div class="step-nav">
+                <button class="nav-btn" id="prevBtn" onclick="prevStep()" disabled>←</button>
+                <div class="step-counter" id="stepCounter">1 / 1</div>
+                <button class="nav-btn" id="nextBtn" onclick="nextStep()">→</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="notification" id="notification"></div>
+
+</body>
+</html>
