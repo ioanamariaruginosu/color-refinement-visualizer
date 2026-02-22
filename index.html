@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Refinement</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
             <div class="input-row">
                 <label>Vertices</label>
                 <input type="number" id="numVertices" value="6" min="1" max="50" />
-                <button class="btn sm">Set</button>
+                <button class="btn sm" onclick="applyVertices()">Set</button>
             </div>
         </div>
 
@@ -35,9 +35,9 @@
 
             <div id="manualPanel">
                 <div class="manual-edges" id="edgeList"></div>
-                <button class="add-edge-btn" style="margin-top:10px">+ Add Edge</button>
+                <button class="add-edge-btn" onclick="addEdgeRow()" style="margin-top:10px">+ Add Edge</button>
                 <div style="display:flex;gap:8px;margin-top:12px">
-                    <button class="btn outline" style="flex:1;font-size:0.78rem">Clear</button>
+                    <button class="btn outline" style="flex:1;font-size:0.78rem" onclick="clearEdges()">Clear</button>
                     <button class="btn" style="flex:1">&#9654; Run</button>
                 </div>
             </div>
@@ -105,6 +105,8 @@
 </div>
 
 <div class="notification" id="notification"></div>
+
+<script src="graph.js"></script>
 
 </body>
 </html>
