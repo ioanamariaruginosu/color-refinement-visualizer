@@ -29,8 +29,8 @@
         <div class="card">
             <div class="section-label">Edges</div>
             <div class="tab-row" style="margin-bottom:14px">
-                <button class="tab active">Manual</button>
-                <button class="tab">Upload Excel</button>
+                <button class="tab active" onclick="switchTab('manual', this)">Manual</button>
+                <button class="tab" onclick="switchTab('upload', this)">Upload Excel</button>
             </div>
 
             <div id="manualPanel">
@@ -111,6 +111,7 @@
 <script src="src/algorithm.js"></script>
 <script src="src/renderer.js"></script>
 <script src="src/navigation.js"></script>
+<script src="src/sidebar.js"></script>
 
 </body>
 </html>
