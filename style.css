@@ -438,6 +438,25 @@ canvas {
 
 .notification.show { opacity: 1; transform: translateY(0); }
 
+#creator {
+    position: fixed;
+    bottom: 14px;
+    right: 20px;
+    z-index: 100;
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+#creator a {
+    color: var(--muted);
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+#creator a:hover {
+    color: var(--accent);
+}
+
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
