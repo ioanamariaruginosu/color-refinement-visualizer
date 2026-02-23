@@ -110,3 +110,96 @@ function drawNodes(ctx, coloring) {
         ctx.fillText(`c${coloring[i]}`, p.x, p.y + NODE_R + 12);
     });
 }
+
+const dragState = {
+    index:   null,
+    offsetX: 0,
+    offsetY: 0,
+};
+
+/**
+ * Get the canvas-relative {x, y} from a mouse or touch event.
+ * @param {MouseEvent|TouchEvent} e
+ * @param {HTMLCanvasElement} canvas
+ * @returns {{ x: number, y: number }}
+ */
+function getEventPos(e, canvas) {
+    const rect   = canvas.getBoundingClientRect();
+    const source = e.touches ? e.touches[0] : e;
+    return {
+        x: source.clientX - rect.left,
+        y: source.clientY - rect.top,
+    };
+}
+
+/**
+ * Return the index of the topmost vertex under (x, y), or null if none.
+ * Iterates in reverse draw order so the visually topmost node wins.
+ * @param {number} x
+ * @param {number} y
+ * @returns {number|null}
+ */
+function hitTest(x, y) {
+    for (let i = positions.length - 1; i >= 0; i--) {
+        const dx = x - positions[i].x;
+        const dy = y - positions[i].y;
+        if (Math.sqrt(dx * dx + dy * dy) <= NODE_R) return i;
+    }
+    return null;
+}
+
+/**
+ * Attach all mouse and touch drag listeners to the canvas.
+ * Call this once after the canvas element exists in the DOM.
+ */
+function initDragListeners() {
+    const canvas = document.getElementById('graphCanvas');
+
+    function onDown(e) {
+        if (steps.length === 0) return;
+        const pos = getEventPos(e, canvas);
+        const hit = hitTest(pos.x, pos.y);
+        if (hit === null) return;
+
+        e.preventDefault();
+        dragState.index   = hit;
+        dragState.offsetX = positions[hit].x - pos.x;
+        dragState.offsetY = positions[hit].y - pos.y;
+        canvas.style.cursor = 'grabbing';
+    }
+
+    function onMove(e) {
+        if (dragState.index === null) {
+            if (steps.length > 0) {
+                const pos = getEventPos(e, canvas);
+                canvas.style.cursor = hitTest(pos.x, pos.y) !== null ? 'grab' : 'default';
+            }
+            return;
+        }
+
+        e.preventDefault();
+        const pos = getEventPos(e, canvas);
+
+        positions[dragState.index] = {
+            x: Math.max(NODE_R, Math.min(canvas.width  - NODE_R, pos.x + dragState.offsetX)),
+            y: Math.max(NODE_R, Math.min(canvas.height - NODE_R, pos.y + dragState.offsetY)),
+        };
+
+        if (steps.length > 0) drawGraph(steps[currentStep].coloring);
+    }
+
+    function onUp() {
+        if (dragState.index === null) return;
+        dragState.index     = null;
+        canvas.style.cursor = 'default';
+    }
+
+    canvas.addEventListener('mousedown',  onDown);
+    canvas.addEventListener('mousemove',  onMove);
+    canvas.addEventListener('mouseup',    onUp);
+    canvas.addEventListener('mouseleave', onUp);
+
+    canvas.addEventListener('touchstart', onDown, { passive: false });
+    canvas.addEventListener('touchmove',  onMove, { passive: false });
+    canvas.addEventListener('touchend',   onUp);
+}

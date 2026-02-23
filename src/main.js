@@ -64,6 +64,8 @@ window.addEventListener('load', () => {
     const defaultEdges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3],[1,4]];
     defaultEdges.forEach(([u, v]) => addEdgeRow(u, v));
 
+    initDragListeners();
+
     window.addEventListener('resize', () => {
         computePositions();
         if (steps.length > 0) drawGraph(steps[currentStep].coloring);
